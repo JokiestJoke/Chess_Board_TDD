@@ -11,7 +11,7 @@ public class ChessBoard {
     private final JPanel graphicalUserInterface = new JPanel(new BorderLayout(3, 3));
     private final JButton[][] gameBoardSquares = new JButton[8][8];
     private final ArrayList<JButton> graphicalUserInterfaceButtons = new ArrayList<>();
-    private final ArrayList<UserInputTextArea> userInputs = new ArrayList<>();
+    private final ArrayList<UserTextArea> userTextAreas = new ArrayList<>();
     private JPanel gameBoard;
     private final JToolBar userToolBar = new JToolBar();
     private static final String COLUMN_CHARACTERS = "ABCDEFGH";
@@ -26,7 +26,7 @@ public class ChessBoard {
         gameBoard = new JPanel(new GridLayout(0, 9));
         gameBoard.setBorder(new LineBorder(BLACK));
         graphicalUserInterface.add(gameBoard);
-        addUserInputToolBar();
+        addUserTextAreasAndButtonsToToolBar();
         populateBoardWithChessSquares();
         fillChessBoard();
     }
@@ -70,8 +70,8 @@ public class ChessBoard {
         return graphicalUserInterfaceButtons.get(index);
     }
 
-    public UserInputTextArea getUserInputTextArea(int index) {
-        return userInputs.get(index);
+    public UserTextArea getUserTextArea(int index) {
+        return userTextAreas.get(index);
     }
 
     private void populateBoardWithChessSquares() {
@@ -122,40 +122,65 @@ public class ChessBoard {
         }
     }
 
-    private void addUserInputToolBar() {
+    private void addUserTextAreasAndButtonsToToolBar() {
         userToolBar.setFloatable(false);
         graphicalUserInterface.add(userToolBar, BorderLayout.PAGE_START);
 
+        initializeCreateBoardButton();
+
+        initializeClearBoardButton();
+
+        initializeRedTeamBoardInput();
+
+        initializeBlueTeamBoardInput();
+
+        initializeLegalMoveTextArea();
+    }
+
+    private void initializeCreateBoardButton() {
         JButton createBoardButton = new JButton("Create Board");
         createBoardButton.addActionListener(new CreateBoardClickEvent(this));
         createBoardButton.setName("Create Button");
-        graphicalUserInterfaceButtons.add(createBoardButton);
-        userToolBar.add(createBoardButton);
-        userToolBar.addSeparator();
+        addButtonToGraphicalUserInterface(createBoardButton);
+    }
 
+    private void initializeClearBoardButton() {
         JButton clearBoardButton = new JButton("Clear Current Board");
         clearBoardButton.addActionListener(new ClearBoardClickEvent(this));
         clearBoardButton.setName("Clear Button");
-        graphicalUserInterfaceButtons.add(clearBoardButton);
-        userToolBar.add(clearBoardButton);
-        userToolBar.addSeparator();
+        addButtonToGraphicalUserInterface(clearBoardButton);
+    }
 
-        UserInputTextArea redTeamInputArea = new UserInputTextArea("Input Red Team's Board Configuration Here");
+    private void initializeRedTeamBoardInput() {
+        UserTextArea redTeamInputArea = new UserTextArea("Input Red Team's Board Configuration Here");
         redTeamInputArea.setName("Red Team Configuration Text Field");
-        userInputs.add(redTeamInputArea);
-        userToolBar.add(redTeamInputArea);
-        userToolBar.addSeparator();
 
-        UserInputTextArea blueTeamInputArea = new UserInputTextArea("Input Blue Team's Board Configuration Here");
+        addTextAreaToToolBar(redTeamInputArea);
+    }
+
+    private void initializeBlueTeamBoardInput() {
+        UserTextArea blueTeamInputArea = new UserTextArea("Input Blue Team's Board Configuration Here");
         blueTeamInputArea.setName("Blue Team Configuration Text Field");
-        userInputs.add(blueTeamInputArea);
-        userToolBar.add(blueTeamInputArea);
-        userToolBar.addSeparator();
 
-        UserInputTextArea legalTeamsReportTextArea = new UserInputTextArea("Legal Moves Will be Generated Here");
+        addTextAreaToToolBar(blueTeamInputArea);
+    }
+
+    private void initializeLegalMoveTextArea() {
+        UserTextArea legalTeamsReportTextArea = new UserTextArea("Legal Moves Will be Generated Here");
         legalTeamsReportTextArea.setName("Legal Capture");
-        userInputs.add(legalTeamsReportTextArea);
-        userToolBar.add(legalTeamsReportTextArea);
+
+        addTextAreaToToolBar(legalTeamsReportTextArea);
+    }
+
+    private void addButtonToGraphicalUserInterface(JButton boardButton) {
+        graphicalUserInterfaceButtons.add(boardButton);
+        userToolBar.add(boardButton);
+        userToolBar.addSeparator();
+    }
+
+    private void addTextAreaToToolBar(UserTextArea textArea) {
+        userTextAreas.add(textArea);
+        userToolBar.add(textArea);
         userToolBar.addSeparator();
     }
 }

@@ -1,10 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class UserInputTextArea extends JTextArea {
+public class UserTextArea extends JTextArea {
     private static final Dimension PREFERRED_SIZE = new Dimension(5, 20);
 
-    UserInputTextArea(String initialTextOnCreation) {
+    UserTextArea(String initialTextOnCreation) {
         this.setPreferredSize(PREFERRED_SIZE);
         setText(initialTextOnCreation);
     }

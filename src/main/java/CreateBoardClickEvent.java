@@ -12,13 +12,26 @@ public class CreateBoardClickEvent implements ActionListener {
         this.chessBoard = chessBoard;
     }
 
+    private static final String DEFAULT_RED_TEAM_STRING = "INPUT RED TEAM'S BOARD CONFIGURATION HERE";
+
+    private static final String DEFAULT_BLUE_TEAM_STRING = "INPUT BLUE TEAM'S BOARD CONFIGURATION HERE";
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        String redTeamBoardConfiguration = chessBoard.getUserInputTextArea(0).getText().toUpperCase().trim();
-        String blueTeamBoardConfiguration = chessBoard.getUserInputTextArea(1).getText().toUpperCase().trim();
-        createChessBoardConfiguration(redTeamBoardConfiguration, redTeam);
-        createChessBoardConfiguration(blueTeamBoardConfiguration, blueTeam);
+        String redTeamBoardConfiguration = chessBoard.getUserTextArea(0).getText().toUpperCase().trim();
+        String blueTeamBoardConfiguration = chessBoard.getUserTextArea(1).getText().toUpperCase().trim();
+
+        isValidBoardConfiguration(redTeamBoardConfiguration, DEFAULT_RED_TEAM_STRING, redTeam);
+        isValidBoardConfiguration(blueTeamBoardConfiguration, DEFAULT_BLUE_TEAM_STRING, blueTeam);
     }
+
+    private void isValidBoardConfiguration(String targetConfigurationString, String shouldNotEqualString, Team team) {
+        if (!targetConfigurationString.equals(shouldNotEqualString) && !targetConfigurationString.isEmpty()) {
+            System.out.println(targetConfigurationString);
+            createChessBoardConfiguration(targetConfigurationString, redTeam);
+        }
+    }
+
 
     private void createChessBoardConfiguration(String boardConfiguration, Team team) {
         String[] chessPieces = boardConfiguration.split(" ");

@@ -11,7 +11,7 @@ public class ClearBoardClickEvent implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         chessBoard.clearActiveChessBoard();
-        UserInputTextArea legalMoveTextArea = chessBoard.getUserInputTextArea(2);
+        UserTextArea legalMoveTextArea = chessBoard.getUserTextArea(2);
         legalMoveTextArea.setText("");
     }
 }

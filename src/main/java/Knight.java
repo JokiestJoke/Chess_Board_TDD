@@ -1,5 +1,4 @@
 public class Knight extends ChessPiece {
-
     Knight(String location, Team team) {
         super(location, team);
         this.chessPieceName = "KNIGHT";
@@ -30,6 +29,7 @@ public class Knight extends ChessPiece {
 
                 if (!nextSquareAboveCurrent.isChessSquareOccupied()) {
                     nextSquareAboveCurrent.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                    updateLegalMoveReport(nextSquareAboveCurrent);
                 } else {
                     highlightLegalCapturesForChessPiece(nextSquareAboveCurrent);
                 }
@@ -45,6 +45,7 @@ public class Knight extends ChessPiece {
 
                 if (!nextSquareAboveCurrent.isChessSquareOccupied()) {
                     nextSquareAboveCurrent.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                    updateLegalMoveReport(nextSquareAboveCurrent);
                 } else {
                     highlightLegalCapturesForChessPiece(nextSquareAboveCurrent);
                 }
@@ -60,6 +61,7 @@ public class Knight extends ChessPiece {
 
                 if (!nextSquareBelowCurrent.isChessSquareOccupied()) {
                     nextSquareBelowCurrent.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                    updateLegalMoveReport(nextSquareBelowCurrent);
                 } else {
                     highlightLegalCapturesForChessPiece(nextSquareBelowCurrent);
                 }
@@ -75,6 +77,7 @@ public class Knight extends ChessPiece {
 
                 if (!nextSquareBelowCurrent.isChessSquareOccupied()) {
                     nextSquareBelowCurrent.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                    updateLegalMoveReport(nextSquareBelowCurrent);
                 } else {
                     highlightLegalCapturesForChessPiece(nextSquareBelowCurrent);
                 }
@@ -90,6 +93,7 @@ public class Knight extends ChessPiece {
 
                 if (!nextSquareHorizontalLeftToCurrent.isChessSquareOccupied()) {
                     nextSquareHorizontalLeftToCurrent.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                    updateLegalMoveReport(nextSquareHorizontalLeftToCurrent);
                 } else {
                     highlightLegalCapturesForChessPiece(nextSquareHorizontalLeftToCurrent);
                 }
@@ -105,6 +109,7 @@ public class Knight extends ChessPiece {
 
                 if (!nextSquareHorizontalLeftToCurrent.isChessSquareOccupied()) {
                     nextSquareHorizontalLeftToCurrent.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                    updateLegalMoveReport(nextSquareHorizontalLeftToCurrent);
                 } else {
                     highlightLegalCapturesForChessPiece(nextSquareHorizontalLeftToCurrent);
                 }
@@ -120,6 +125,7 @@ public class Knight extends ChessPiece {
 
                 if (!nextSquareHorizontalRightToCurrent.isChessSquareOccupied()) {
                     nextSquareHorizontalRightToCurrent.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                    updateLegalMoveReport(nextSquareHorizontalRightToCurrent);
                 } else {
                     highlightLegalCapturesForChessPiece(nextSquareHorizontalRightToCurrent);
                 }
@@ -135,10 +141,12 @@ public class Knight extends ChessPiece {
 
                 if (!nextSquareHorizontalRightToCurrent.isChessSquareOccupied()) {
                     nextSquareHorizontalRightToCurrent.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                    updateLegalMoveReport(nextSquareHorizontalRightToCurrent);
                 } else {
                     highlightLegalCapturesForChessPiece(nextSquareHorizontalRightToCurrent);
                 }
             }
         }
     }
+
 }

@@ -151,5 +151,11 @@ public class ChessBoard {
         userInputs.add(blueTeamInputArea);
         userToolBar.add(blueTeamInputArea);
         userToolBar.addSeparator();
+
+        UserInputTextArea legalTeamsReportTextArea = new UserInputTextArea("Legal Moves Will be Generated Here");
+        legalTeamsReportTextArea.setName("Legal Capture");
+        userInputs.add(legalTeamsReportTextArea);
+        userToolBar.add(legalTeamsReportTextArea);
+        userToolBar.addSeparator();
     }
 }

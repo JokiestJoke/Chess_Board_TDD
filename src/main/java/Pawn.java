@@ -45,6 +45,7 @@ public class Pawn extends ChessPiece {
             ChessSquare nextLegalChessSquareAboveCurrent = chessSquare.getChessSquareAboveCurrentChessSquare(chessBoard);
             if (!nextLegalChessSquareAboveCurrent.isChessSquareOccupied()) {
                 nextLegalChessSquareAboveCurrent.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(nextLegalChessSquareAboveCurrent);
             }
         }
     }
@@ -54,6 +55,7 @@ public class Pawn extends ChessPiece {
             ChessSquare nextLegalChessSquareBelowCurrent = chessSquare.getChessSquareBelowCurrentChessSquare(chessBoard);
             if (!nextLegalChessSquareBelowCurrent.isChessSquareOccupied()) {
                 nextLegalChessSquareBelowCurrent.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(nextLegalChessSquareBelowCurrent);
             }
         }
     }
@@ -63,9 +65,11 @@ public class Pawn extends ChessPiece {
             ChessSquare nextLegalChessSquareBelowCurrent = chessSquare.getChessSquareBelowCurrentChessSquare(chessBoard);
             if (!nextLegalChessSquareBelowCurrent.isChessSquareOccupied()) {
                 nextLegalChessSquareBelowCurrent.setBackground(Color.YELLOW);
+                updateLegalMoveReport(nextLegalChessSquareBelowCurrent);
                 if (!hasPerformedDoubleMoveStatus) {
                     ChessSquare doubleMoveDestination = nextLegalChessSquareBelowCurrent.getChessSquareBelowCurrentChessSquare(chessBoard);
                     doubleMoveDestination.setBackground(Color.YELLOW);
+                    updateLegalMoveReport(doubleMoveDestination);
                     hasPerformedDoubleMoveStatus = true;
                 }
             }
@@ -77,9 +81,11 @@ public class Pawn extends ChessPiece {
             ChessSquare nextLegalChessSquareAboveCurrent = chessSquare.getChessSquareAboveCurrentChessSquare(chessBoard);
             if (!nextLegalChessSquareAboveCurrent.isChessSquareOccupied()) {
                 nextLegalChessSquareAboveCurrent.setBackground(Color.YELLOW);
+                updateLegalMoveReport(nextLegalChessSquareAboveCurrent);
                 if (!hasPerformedDoubleMoveStatus) {
                     ChessSquare doubleMoveDestination = nextLegalChessSquareAboveCurrent.getChessSquareAboveCurrentChessSquare(chessBoard);
                     doubleMoveDestination.setBackground(Color.YELLOW);
+                    updateLegalMoveReport(doubleMoveDestination);
                     hasPerformedDoubleMoveStatus = true;
                 }
             }

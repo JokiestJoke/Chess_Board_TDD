@@ -11,6 +11,8 @@ public abstract class ChessPiece {
     protected String chessPieceSymbol;
     protected int legalPieceLimit;
     protected static final String VALID_CHARACTERS = "ABCDEFGH";
+    protected StringBuilder moveReport = new StringBuilder("");
+    protected StringBuilder captureReport = new StringBuilder("");
 
     ChessPiece(String location, Team team) {
         validate(location);
@@ -42,11 +44,20 @@ public abstract class ChessPiece {
         return columnLocation;
     }
 
+    public StringBuilder legalMoveStringBuilder() {
+        return moveReport;
+    }
+
+    public StringBuilder legalCaptureStringBuilder() {
+        return captureReport;
+    }
+
     public void findLegalChessSquareNorthOfCurrentSquare(ChessBoard chessBoard, ChessSquare chessSquare) {
         if (!chessSquare.isChessSquareNorthEndOfBoard()) {
             ChessSquare nextLegalChessSquareAboveCurrent = chessSquare.getChessSquareAboveCurrentChessSquare(chessBoard);
             if (!nextLegalChessSquareAboveCurrent.isChessSquareOccupied()) {
                 nextLegalChessSquareAboveCurrent.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(nextLegalChessSquareAboveCurrent);
             } else {
                 highlightLegalCapturesForChessPiece(nextLegalChessSquareAboveCurrent);
             }
@@ -58,6 +69,7 @@ public abstract class ChessPiece {
             ChessSquare rightDestination = chessSquare.getChessSquareRightOfCurrentChessSquare(chessBoard);
             if (!rightDestination.isChessSquareOccupied()) {
                 rightDestination.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(rightDestination);
             } else {
                 highlightLegalCapturesForChessPiece(rightDestination);
             }
@@ -70,6 +82,7 @@ public abstract class ChessPiece {
             ChessSquare nextLegalChessSquareBelowCurrent = chessSquare.getChessSquareBelowCurrentChessSquare(chessBoard);
             if (!nextLegalChessSquareBelowCurrent.isChessSquareOccupied()) {
                 nextLegalChessSquareBelowCurrent.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(nextLegalChessSquareBelowCurrent);
             } else {
                 highlightLegalCapturesForChessPiece(nextLegalChessSquareBelowCurrent);
             }
@@ -81,6 +94,7 @@ public abstract class ChessPiece {
             ChessSquare leftDestination = chessSquare.getChessSquareLeftOfCurrentChessSquare(chessBoard);
             if (!leftDestination.isChessSquareOccupied()) {
                 leftDestination.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(leftDestination);
             } else {
                 highlightLegalCapturesForChessPiece(leftDestination);
             }
@@ -92,6 +106,7 @@ public abstract class ChessPiece {
             ChessSquare diagonalTopLeftOfCurrentSquare = chessSquare.getChessSquareDiagonalTopLeftOfCurrentChessSquare(chessBoard);
             if (!diagonalTopLeftOfCurrentSquare.isChessSquareOccupied()) {
                 diagonalTopLeftOfCurrentSquare.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(diagonalTopLeftOfCurrentSquare);
             } else {
                 highlightLegalCapturesForChessPiece(diagonalTopLeftOfCurrentSquare);
             }
@@ -103,6 +118,7 @@ public abstract class ChessPiece {
             ChessSquare diagonalBottomRightOfCurrentSquare = chessSquare.getChessSquareDiagonalBottomRightOfCurrentChessSquare(chessBoard);
             if (!diagonalBottomRightOfCurrentSquare.isChessSquareOccupied()) {
                 diagonalBottomRightOfCurrentSquare.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(diagonalBottomRightOfCurrentSquare);
             } else {
                 highlightLegalCapturesForChessPiece(diagonalBottomRightOfCurrentSquare);
             }
@@ -114,6 +130,7 @@ public abstract class ChessPiece {
             ChessSquare diagonalTopRightOfCurrentSquare = chessSquare.getChessSquareDiagonalTopRightOfCurrentChessSquare(chessBoard);
             if (!diagonalTopRightOfCurrentSquare.isChessSquareOccupied()) {
                 diagonalTopRightOfCurrentSquare.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(diagonalTopRightOfCurrentSquare);
             } else {
                 highlightLegalCapturesForChessPiece(diagonalTopRightOfCurrentSquare);
             }
@@ -125,6 +142,7 @@ public abstract class ChessPiece {
             ChessSquare diagonalBottomLeftOfCurrentSquare = chessSquare.getChessSquareDiagonalBottomLeftOfCurrentChessSquare(chessBoard);
             if (!diagonalBottomLeftOfCurrentSquare.isChessSquareOccupied()) {
                 diagonalBottomLeftOfCurrentSquare.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(diagonalBottomLeftOfCurrentSquare);
             } else {
                 highlightLegalCapturesForChessPiece(diagonalBottomLeftOfCurrentSquare);
             }
@@ -136,6 +154,7 @@ public abstract class ChessPiece {
             ChessSquare diagonalBottomLeftOfCurrentSquare = chessSquare.getChessSquareDiagonalBottomLeftOfCurrentChessSquare(chessBoard);
             if (!diagonalBottomLeftOfCurrentSquare.isChessSquareOccupied()) {
                 diagonalBottomLeftOfCurrentSquare.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(diagonalBottomLeftOfCurrentSquare);
                 recursivelyFindAllLegalChessSquaresDiagonalSouthWestOfCurrentChessPiece(chessBoard, diagonalBottomLeftOfCurrentSquare);
             } else {
                 highlightLegalCapturesForChessPiece(diagonalBottomLeftOfCurrentSquare);
@@ -148,6 +167,7 @@ public abstract class ChessPiece {
             ChessSquare diagonalTopRightOfCurrentSquare = chessSquare.getChessSquareDiagonalTopRightOfCurrentChessSquare(chessBoard);
             if (!diagonalTopRightOfCurrentSquare.isChessSquareOccupied()) {
                 diagonalTopRightOfCurrentSquare.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(diagonalTopRightOfCurrentSquare);
                 recursivelyFindAllLegalChessSquaresDiagonalNorthEastOfCurrentChessPiece(chessBoard, diagonalTopRightOfCurrentSquare);
             } else {
                 highlightLegalCapturesForChessPiece((diagonalTopRightOfCurrentSquare));
@@ -160,6 +180,7 @@ public abstract class ChessPiece {
             ChessSquare diagonalTopLeftOfCurrentSquare = chessSquare.getChessSquareDiagonalTopLeftOfCurrentChessSquare(chessBoard);
             if (!diagonalTopLeftOfCurrentSquare.isChessSquareOccupied()) {
                 diagonalTopLeftOfCurrentSquare.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(diagonalTopLeftOfCurrentSquare);
                 recursivelyFindAllLegalChessSquaresDiagonalNorthWestOfCurrentChessPiece(chessBoard, diagonalTopLeftOfCurrentSquare);
             } else {
                 highlightLegalCapturesForChessPiece(diagonalTopLeftOfCurrentSquare);
@@ -172,6 +193,7 @@ public abstract class ChessPiece {
             ChessSquare diagonalBottomRightOfCurrentSquare = chessSquare.getChessSquareDiagonalBottomRightOfCurrentChessSquare(chessBoard);
             if (!diagonalBottomRightOfCurrentSquare.isChessSquareOccupied()) {
                 diagonalBottomRightOfCurrentSquare.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(diagonalBottomRightOfCurrentSquare);
                 recursivelyFindAllLegalChessSquaresDiagonalSouthEastOfCurrentChessPiece(chessBoard, diagonalBottomRightOfCurrentSquare);
             } else {
                 highlightLegalCapturesForChessPiece(diagonalBottomRightOfCurrentSquare);
@@ -184,6 +206,7 @@ public abstract class ChessPiece {
             ChessSquare upwardDestination = chessSquare.getChessSquareAboveCurrentChessSquare(chessBoard);
             if (!upwardDestination.isChessSquareOccupied()) {
                 upwardDestination.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(upwardDestination);
                 recursivelyFindAllLegalChessSquaresNorthOfCurrentChessPiece(chessBoard, upwardDestination);
             } else {
                 highlightLegalCapturesForChessPiece(upwardDestination);
@@ -196,6 +219,7 @@ public abstract class ChessPiece {
             ChessSquare rightDestination = chessSquare.getChessSquareRightOfCurrentChessSquare(chessBoard);
             if (!rightDestination.isChessSquareOccupied()) {
                 rightDestination.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(rightDestination);
                 recursivelyFindAllLegalChessSquaresEastOfCurrentChessPiece(chessBoard, rightDestination);
             } else {
                 highlightLegalCapturesForChessPiece(rightDestination);
@@ -208,6 +232,7 @@ public abstract class ChessPiece {
             ChessSquare downwardDirection = chessSquare.getChessSquareBelowCurrentChessSquare(chessBoard);
             if (!downwardDirection.isChessSquareOccupied()) {
                 downwardDirection.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(downwardDirection);
                 recursivelyFindAllLegalChessSquaresSouthOfCurrentChessPiece(chessBoard, downwardDirection);
             } else {
                 highlightLegalCapturesForChessPiece(downwardDirection);
@@ -220,6 +245,7 @@ public abstract class ChessPiece {
             ChessSquare leftDestination = chessSquare.getChessSquareLeftOfCurrentChessSquare(chessBoard);
             if (!leftDestination.isChessSquareOccupied()) {
                 leftDestination.setBackground(LEGAL_MOVE_HIGHLIGHT);
+                updateLegalMoveReport(leftDestination);
                 recursivelyFindAllLegalChessSquaresWestOfCurrentChessPiece(chessBoard, leftDestination);
             } else {
                 highlightLegalCapturesForChessPiece(leftDestination);
@@ -231,7 +257,16 @@ public abstract class ChessPiece {
         ChessPiece chessPiece = chessSquare.getOccupantsList().get(0);
         if (!this.team.getTeamName().equals(chessPiece.getTeam().getTeamName())) {
             chessSquare.setBackground(LEGAL_CAPTURE_HIGHLIGHT);
+            updateLegalCaptureReport(chessSquare);
         }
+    }
+
+    void updateLegalMoveReport(ChessSquare chessSquare) {
+        moveReport.append(chessSquare.getRowLocation()).append(chessSquare.getColumnLocation()).append(" ");
+    }
+
+    void updateLegalCaptureReport(ChessSquare chessSquare) {
+        captureReport.append(chessSquare.getRowLocation()).append(chessSquare.getColumnLocation()).append(" ");
     }
 
 
@@ -273,4 +308,6 @@ public abstract class ChessPiece {
             throw new IllegalArgumentException("Error: Column Location is Invalid. Must be either a number between 1 through 8");
         }
     }
+
+
 }

@@ -184,6 +184,4 @@ public class ChessSquare extends JButton {
             isChessSquareWestEndOfBoard = true;
         }
     }
-
-
 }
